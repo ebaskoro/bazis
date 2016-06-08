@@ -1,0 +1,5 @@
+_assetic:
+    resource: .
+    type: assetic
+_app:
+    resource: /home/imcv1/public_html/bazis/app/config/routing.yml
