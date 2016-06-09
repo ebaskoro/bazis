@@ -15,13 +15,20 @@ module.exports = (grunt) ->
         port: 18765
         exclude: [
           '.git'
-          'Gruntfile'
+          'package.json'
+          'node_modules'
+          'Gruntfile.*'
+        ]
+        args: [
+          '--verbose'
         ]
         recursive: true
         delete: true
+        src: './'
         host: 'imcv1@imcv.org.au'
       prod:
-        dest: '~/public_html/bazis'
+        options:
+          dest: '~/public_html/bazis'
 
     grunt.registerTask 'deploy:prod', [
       'rsync:prod'
