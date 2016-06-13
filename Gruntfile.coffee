@@ -18,6 +18,7 @@ module.exports = (grunt) ->
           'package.json'
           'node_modules'
           'Gruntfile.*'
+          '.htaccess'
         ]
         args: [
           '--verbose'
