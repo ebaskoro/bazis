@@ -106,7 +106,7 @@ app.controller('Step2Ctrl', ['$scope', '$location', function ($scope, $location)
 }]);
 
 
-app.controller('Step3Ctrl', ['$scope', '$location', '$modal', '$http', function ($scope, $location, $modal, $http) {
+app.controller('Step3Ctrl', ['$scope', '$location', '$modal', '$http', '$sce', function ($scope, $location, $modal, $http, $sce) {
   if (!$scope.payment) {
     $location.path('/');
   }
@@ -143,9 +143,11 @@ app.controller('Step3Ctrl', ['$scope', '$location', '$modal', '$http', function 
         templateUrl: 'progressDialog.html'
       });
 
-      var url = 'https://script.google.com/macros/s/AKfycbwWsv6rb1axS4yvUJzMtHiRZDjS1BUx6M1Iy3i6-Rqv8P2hr7Z6/exec?prefix=JSON_CALLBACK';
+      var url = 'https://script.google.com/macros/s/AKfycbwWsv6rb1axS4yvUJzMtHiRZDjS1BUx6M1Iy3i6-Rqv8P2hr7Z6/exec';
+      var trustedUrl = $sce.trustAsResourceUrl(url);
       $http
-        .jsonp(url, {
+        .jsonp(trustedUrl, {
+          jsonpCallbackParam: 'prefix',
           params: {
             name: $scope.payment.name,
             phone: $scope.payment.mobile,
@@ -158,11 +160,12 @@ app.controller('Step3Ctrl', ['$scope', '$location', '$modal', '$http', function 
             agent: ''
           }
         })
-        .then(function (data) {
+        .then(function (response) {
           progressDialog.close();
-          $scope.payment.name = data.name;
-          $scope.payment.total = data.total;
-          $scope.payment.reference = data.reference;
+          var payment = response.data;
+          $scope.payment.name = payment.name;
+          $scope.payment.total = payment.total;
+          $scope.payment.reference = payment.reference;
           $location.path('/step4');
         })
         .catch(function () {
