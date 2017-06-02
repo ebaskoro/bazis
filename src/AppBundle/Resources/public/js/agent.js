@@ -1,10 +1,10 @@
 function updateSummary() {
   var $summary = $('#summary');
-  
+
   var fitrah = parseInt($('#fitrah').val());
   var $fitrahRow = $('#fitrahRow');
   var fitrahTotal = 12 * fitrah;
-  
+
   if (fitrah) {
     $fitrahRow
       .find('.quantity').text(fitrah).end()
@@ -15,11 +15,11 @@ function updateSummary() {
   else {
     $fitrahRow.hide();
   }
-  
+
   var fidyah = parseInt($('#fidyah').val());
   var $fidyahRow = $('#fidyahRow');
   var fidyahTotal = 12 * fidyah;
-  
+
   if (fidyah) {
     $fidyahRow
       .find('.quantity').text(fidyah).end()
@@ -30,10 +30,10 @@ function updateSummary() {
   else {
     $fidyahRow.hide();
   }
-  
+
   var maal = parseInt($('#maal').val() || '0');
   var $maalRow = $('#maalRow');
-  
+
   if (maal) {
     $maalRow
       .find('.total').text('$' + maal).end()
@@ -43,10 +43,10 @@ function updateSummary() {
   else {
     $maalRow.hide();
   }
-  
+
   var infak = parseInt($('#infak').val() || '0');
   var $infakRow = $('#infakRow');
-  
+
   if (infak) {
     $infakRow
       .find('.total').text('$' + infak).end()
@@ -56,10 +56,10 @@ function updateSummary() {
   else {
     $infakRow.hide();
   }
-  
+
   var total = fitrahTotal + fidyahTotal + maal + infak;
   $summary.find('h3.total').text('$' + total);
-  
+
   if (fitrah || fidyah || maal || infak) {
     $summary.show();
   }
@@ -101,14 +101,14 @@ function validateForm() {
     $agent.parent().addClass('has-error');
     errorMessages.push('Nama agen harap dipilih');
   }
-  
+
   var $fitrah = $('#fitrah');
   var fitrah = parseInt($fitrah.val());
   var $fidyah = $('#fidyah');
   var fidyah = parseInt($fidyah.val());
   var $maal = $('#maal');
   var $infak = $('#infak');
-  
+
   if (fitrah ||
      fidyah ||
      $maal.val() ||
@@ -125,9 +125,9 @@ function validateForm() {
     $infak.parent().addClass('has-error');
     errorMessages.push('Paling sedikit satu jenis pembayaran harap diisi');
   }
-  
+
   var $name = $('#name');
-  
+
   if ($name.val()) {
     $name.parent().removeClass('has-error');
   }
@@ -137,7 +137,7 @@ function validateForm() {
   }
 
   var $mobile = $('#mobile');
-  
+
   if ($mobile.val()) {
     $mobile.parent().removeClass('has-error');
   }
@@ -157,35 +157,76 @@ function validateForm() {
 }
 
 
+/**
+ * Initialises the agents.
+ *
+ */
+function initialiseAgents() {
+  var $progressModal = $('#progressModal');
+  $progressModal.modal('show');
+
+  $.ajax({
+    url: 'https://script.google.com/macros/s/AKfycbwGqZfpJnst5mnXbs-rnrOPqXzkhBLwlwvbat7Gi9uDQz-WF6AD/exec?prefix=?',
+    jsonp: 'prefix',
+    dataType: 'jsonp',
+    success: function (response) {
+      $progressModal.modal('hide');
+
+      if (response.resultCode == 0) {
+        var $agentSelector = $('#agent');
+        $agentSelector.empty();
+        $('<option></option>')
+          .attr('value', '')
+          .text('Pilih')
+          .appendTo($agentSelector);
+        $.each(response.agents, function (i, agent) {
+          $('<option></option>')
+            .attr('value', agent.name)
+            .text(agent.name)
+            .appendTo($agentSelector);
+        });
+      }
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      $progressModal.modal('hide');
+    }
+  });
+}
+
+
+/**
+ * Handles document ready event.
+ *
+ */
 $(function () {
   $('#fitrah').change(function () {
     updateSummary();
   });
-  
+
   $('#fidyah').change(function () {
     updateSummary();
   });
-  
+
   $('#maal').change(function () {
     updateSummary();
   });
-  
+
   $('#infak').change(function () {
     updateSummary();
   });
-  
+
   $('#summary').hide();
-  
+
   $('#resetButton').click(function () {
     clearForm();
   });
-  
+
   $('#processButton').click(function () {
     var validated = validateForm();
-    
+
     if (validated) {
       $('#progressModal').modal('show');
-      
+
       $.ajax({
         url: 'https://script.google.com/macros/s/AKfycbwWsv6rb1axS4yvUJzMtHiRZDjS1BUx6M1Iy3i6-Rqv8P2hr7Z6/exec?prefix=?',
         jsonp: 'prefix',
@@ -204,10 +245,10 @@ $(function () {
         success: function (response) {
           $('#progressModal').modal('hide');
           var $modal = $('#successModal');
-          
+
           $modal.find('.modal-body .name').text(response.name);
           $('#summary table').clone().replaceAll($modal.find('.modal-body table'));
-          
+
           var paymentMethod = $('#paymentMethod').val();
           var $info = $modal.find('.transfer-info');
 
@@ -236,4 +277,6 @@ $(function () {
       $('#validationModal').modal();
     }
   });
+
+  initialiseAgents();
 });

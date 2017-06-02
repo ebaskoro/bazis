@@ -19,6 +19,7 @@ module.exports = (grunt) ->
           'node_modules'
           'Gruntfile.*'
           '.htaccess'
+          'server'
         ]
         args: [
           '--verbose'
