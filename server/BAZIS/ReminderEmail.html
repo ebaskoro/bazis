@@ -1,0 +1,56 @@
+<p>Assalaamu 'alaikum <?= name ?>.</p>
+
+<p>Anda telah tercatat dalam pembayaran Zakat melalui IMCV BAZIS. Berikut ini adalah rincian pembayaran anda.</p>
+<table>
+  <? if (fitrahCount > 0) { ?>
+  <tr>
+    <td>Zakat Fitrah:</td>
+    <td style="text-align: center">$12</td>
+    <td style="text-align: center">x</td>
+    <td style="text-align: center"><?= fitrahCount ?></td>
+    <td style="text-align: center">=</td>
+    <td style="text-align: right">$<?= fitrahTotal ?></td>
+  </tr>
+  <? } ?>
+  <? if (fidyahCount > 0) { ?>
+  <tr>
+    <td>Fidyah:</td>
+    <td style="text-align: center">$12</td>
+    <td style="text-align: center">x</td>
+    <td style="text-align: center"><?= fidyahCount ?></td>
+    <td style="text-align: center">=</td>
+    <td style="text-align: right">$<?= fidyahTotal ?></td>
+  </tr>
+  <? } ?>
+  <? if (maal > 0) { ?>
+  <tr>
+    <td colspan="5">Zakat Maal:</td>
+    <td style="text-align: right">$<?= maal ?></td>
+  </tr>
+  <? } ?>
+  <? if (infak > 0) { ?>
+  <tr>
+    <td colspan="5">Infak / Sodaqoh:</td>
+    <td style="text-align: right">$<?= infak ?></td>
+  </tr>
+  <? } ?>
+  <tr>
+    <td colspan="5">Total Pembayaran:</td>
+    <td style="text-align: right"><b>$<?= total ?></b></td>
+  </tr>
+</table>
+<? if (paid) { ?>
+<p>Terima kasih atas pembayaran anda.</p>
+<? } else { ?>
+<p>Mohon untuk melakukan transfer pembayaran anda ke rekening Bazis IMCV dengan rincian di bawah ini.</p>
+<p>Account Name: IMCV Inc. BAZIS</p>
+<p>BSB: 083144</p>
+<p>Account Number: 944280572</p>
+<p>Description: <b><?= paymentReference ?></b></p>
+<p>Amount: <b>$<?= total ?></b><p>
+<? } ?>
+
+<p>Jazakumullah.</p>
+
+<p>Wassalaamu 'alaikum.</p>
+<p>IMCV BAZIS</p>
