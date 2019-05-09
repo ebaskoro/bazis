@@ -4,11 +4,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>IMCV BAZIS</title>
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
-  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:600" />
+  <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/placeholder-loading/dist/css/placeholder-loading.min.css">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:400,600">
   {% stylesheets '@AppBundle/Resources/public/css/*' %}
     <link rel="stylesheet" href="{{ asset_url }}" />
   {% endstylesheets %}
-  <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+  <link rel="icon" type="image/x-icon" href="{{ asset('favicon.png') }}" />
 </head>
 <body ng-controller="ApplicationCtrl">
   <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -25,9 +28,10 @@
 
   <nav class="navbar navbar-inverse navbar-fixed-bottom">
     <div class="container">
-      <p class="navbar-text">&copy; 2017 IMCV BAZIS | bazis.imcv.org.au</p>
+      <p class="navbar-text">&copy; 2019 IMCV BAZIS | bazis.imcv.org.au</p>
     </div>
   </nav>
+
 
   <!-- Templates -->
   <script type="text/ng-template" id="index.html">
@@ -37,35 +41,41 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-12">
-        <h1>Pembayaran Zakat Fitrah, Fidyah, Maal dan Infak atau Sodaqoh.</h1>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-12">
-        <p>Assalamu'alaykum Wr Wb</p>
-        <p>Di bulan Ramadan yang penuh berkah ini, IMCV terus berusaha untuk membantu kepedulian Bapak/Ibu sekalian terhadap ummat ini dengan membantu menyalurkan Zakat, Infaq, dan Sadaqah (ZIS) kepada pihak yang berhak menerima (mustahiq) yang salah satu tujuannya untuk memutus rantai kemiskinan dan kebodohan.</p>
-        <p>Dengan izin Allah SWT, tahun lalu IMCV sudah menyalurkan ZIS lebih dari A$30,000 di bulan Ramadan, dan total lebih dari AUD80,000 di tahun terakhir untuk membantu korban bencana di berbagai penjuru dunia, serta membantu fakir/miskin di Indonesia.</p>
-        <p>Mari kita berpartisipasi kembali dan inshaAllah kami siap menyalurkan ZIS Bapak/Ibu.</p>
-        <p>Berikut adalah nisab sesuai dengan pedoman dari ANIC (Australia National Imam Council):</p>
-        <ol>
-          <li>Zakat Fitrah: A$12 per Jiwa</li>
-          <li>Fidyah: A$12 per Hari</li>
-          <li>Zakat Maal: 2.5% dari Total harta kita (cash, emas, perak dan bisnis) batas nisab A$4,649.50</li>
-          <li>Infaq/Sadaqah</li>
-        </ol>
-        <p>ZIS dapat disampaikan berupa cash ke masing-masing IMCV Center:</p>
-        <ul>
-          <li>Nur Edi (Westall) 0424 310 911</li>
-          <li>Ockie Irawan (Surau Kita) 0432 262 920</li>
-          <li>Ustadz Suyono (Baitul Ma'mur) 0406 744 291</li>
-        </ul>
-        <p>atau dengan menggunakan fasilitas online ini.</p>
-        <p>Semoga Allah SWT memberkahi kita semua.</p>
-        <p>Selamat beribadah!</p>
-        <p>Wassalamu'alaykum Wr Wb</p>
-        <p>BAZIS IMCV</p>
-        <p>Info: Iman Setiawan 0433 617 317</p>
+      <div class="col-xs-12 col-sm-12 col-md-12" ng-bind-html="homepage"></div>
+      <div class="col-xs-12 col-sm-12 col-md-12" ng-if="!homepage">
+        <div class="ph-row">
+          <div class="ph-col-12 empty"></div>
+        </div>
+        <div class="ph-row">
+          <div class="ph-col-12 big"></div>
+        </div>
+        <div class="ph-row">
+          <div class="ph-col-6 big"></div>
+          <div class="ph-col-6 empty"></div>
+        </div>
+        <div class="ph-row">
+          <div class="ph-col-12"></div>
+          <div class="ph-col-12"></div>
+          <div class="ph-col-6"></div>
+          <div class="ph-col-4"></div>
+        </div>
+        <div class="ph-row">
+          <div class="ph-col-12"></div>
+          <div class="ph-col-12"></div>
+          <div class="ph-col-6"></div>
+          <div class="ph-col-4"></div>
+        </div>
+        <div class="ph-row">
+          <div class="ph-col-12"></div>
+          <div class="ph-col-12"></div>
+          <div class="ph-col-6"></div>
+          <div class="ph-col-4"></div>
+        </div>
+        <div class="ph-row">
+          <div class="ph-col-12"></div>
+          <div class="ph-col-6"></div>
+          <div class="ph-col-4"></div>
+        </div>
       </div>
     </div>
     <div class="row">
@@ -83,26 +93,46 @@
     </div>
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12">
-        <p>Silahkan masukan pembayaran yang anda inginkan di bawah ini:</p>
+        <p>Please specify your payment below:</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group">
+          <h4>ZIS on behalf of</h4>
+          <input type="text" class="form-control input-lg" ng-model="payment.onBehalfOf" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group">
+          <h4>Cause</h4>
+          <select class="form-control input-lg" ng-model="payment.cause" ng-change="handleCauseChanged()" convert-to-number ng-disabled="!causes">
+            <option value="0">None</option>
+            <option ng-repeat="cause in causes" value="[[ cause.id ]]">[[ cause.name ]]</option>
+          </select>
+        </div>
       </div>
     </div>
     <div class="row">
       <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group">
           <h4>Zakat Fitrah</h4>
-          <h6>$12 per Jiwa</h6>
+          <h6 ng-if="rates.fitrah">[[ rates.fitrah | currency:"$":0 ]] per Person</h6>
+          <h6 ng-if="!rates.fitrah"><i class="fas fa-spinner fa-spin"></i></h6>
           <select class="form-control input-lg" ng-model="payment.fitrah" convert-to-number>
-            <option value="0">Tidak Ada</option>
-            <option value="1">1 Orang</option>
-            <option value="2">2 Orang</option>
-            <option value="3">3 Orang</option>
-            <option value="4">4 Orang</option>
-            <option value="5">5 Orang</option>
-            <option value="6">6 Orang</option>
-            <option value="7">7 Orang</option>
-            <option value="8">8 Orang</option>
-            <option value="9">9 Orang</option>
-            <option value="10">10 Orang</option>
+            <option value="0">None</option>
+            <option value="1">1 person</option>
+            <option value="2">2 people</option>
+            <option value="3">3 people</option>
+            <option value="4">4 people</option>
+            <option value="5">5 people</option>
+            <option value="6">6 people</option>
+            <option value="7">7 people</option>
+            <option value="8">8 people</option>
+            <option value="9">9 people</option>
+            <option value="10">10 people</option>
           </select>
         </div>
       </div>
@@ -111,39 +141,40 @@
       <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group">
           <h4>Fidyah</h4>
-          <h6>$12 per Hari</h6>
+          <h6 ng-if="rates.fidyah">[[ rates.fidyah | currency:"$":0 ]] per Day</h6>
+          <h6 ng-if="!rates.fidyah"><i class="fas fa-spinner fa-spin"></i></h6>
           <select class="form-control input-lg" ng-model="payment.fidyah" convert-to-number>
-            <option value="0">Tidak Ada</option>
-            <option value="1">1 Hari</option>
-            <option value="2">2 Hari</option>
-            <option value="3">3 Hari</option>
-            <option value="4">4 Hari</option>
-            <option value="5">5 Hari</option>
-            <option value="6">6 Hari</option>
-            <option value="7">7 Hari</option>
-            <option value="8">8 Hari</option>
-            <option value="9">9 Hari</option>
-            <option value="10">10 Hari</option>
-            <option value="11">11 Hari</option>
-            <option value="12">12 Hari</option>
-            <option value="13">13 Hari</option>
-            <option value="14">14 Hari</option>
-            <option value="15">15 Hari</option>
-            <option value="16">16 Hari</option>
-            <option value="17">17 Hari</option>
-            <option value="18">18 Hari</option>
-            <option value="19">19 Hari</option>
-            <option value="20">20 Hari</option>
-            <option value="21">21 Hari</option>
-            <option value="22">22 Hari</option>
-            <option value="23">23 Hari</option>
-            <option value="24">24 Hari</option>
-            <option value="25">25 Hari</option>
-            <option value="26">26 Hari</option>
-            <option value="27">27 Hari</option>
-            <option value="28">28 Hari</option>
-            <option value="29">29 Hari</option>
-            <option value="30">30 Hari</option>
+            <option value="0">None</option>
+            <option value="1">1 day</option>
+            <option value="2">2 days</option>
+            <option value="3">3 days</option>
+            <option value="4">4 days</option>
+            <option value="5">5 days</option>
+            <option value="6">6 days</option>
+            <option value="7">7 days</option>
+            <option value="8">8 days</option>
+            <option value="9">9 days</option>
+            <option value="10">10 days</option>
+            <option value="11">11 days</option>
+            <option value="12">12 days</option>
+            <option value="13">13 days</option>
+            <option value="14">14 days</option>
+            <option value="15">15 days</option>
+            <option value="16">16 days</option>
+            <option value="17">17 days</option>
+            <option value="18">18 days</option>
+            <option value="19">19 days</option>
+            <option value="20">20 days</option>
+            <option value="21">21 days</option>
+            <option value="22">22 days</option>
+            <option value="23">23 days</option>
+            <option value="24">24 days</option>
+            <option value="25">25 days</option>
+            <option value="26">26 days</option>
+            <option value="27">27 days</option>
+            <option value="28">28 days</option>
+            <option value="29">29 days</option>
+            <option value="30">30 days</option>
           </select>
         </div>
       </div>
@@ -152,16 +183,17 @@
       <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group">
           <h4>Zakat Maal</h4>
-          <h6>2.5% dari total harta kita (uang kas, emas, perak dan pendapatan bisnis) batas nisab $4,649.50</h6>
-          <input type="text" class="form-control input-lg" ng-model="payment.maal" />
+          <h6 ng-if="rates.nisab">2.5% of our total assets (cash, gold, silver and business) Nisab/Threshold [[ rates.nisab | currency ]]</h6>
+          <h6 ng-if="!rates.nisab"><i class="fas fa-spinner fa-spin"></i></h6>
+          <input type="text" class="form-control input-lg" ng-model="payment.maal" only-digits />
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group">
-          <h4>Infak atau Sodaqoh</h4>
-          <input type="text" class="form-control input-lg" ng-model="payment.infak" />
+          <h4>Infaq or Sadaqa</h4>
+          <input type="text" class="form-control input-lg" ng-model="payment.infak" only-digits />
         </div>
       </div>
     </div>
@@ -183,45 +215,71 @@
     </div>
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12">
-        <p>Berikut ini adalah rangkuman pembayaran anda. Silahkan melanjutkan ke layar berikutnya.</p>
+        <p>Below is the summary of your payment. Please continue to the next step.</p>
       </div>
     </div>
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12">
-        <table class="table table-bordered">
+        <table class="table">
+          <tr ng-show="payment.onBehalfOf">
+            <td>On Behalf Of:</td>
+            <td colspan="5">[[ payment.onBehalfOf ]]</td>
+          </tr>
+          <tr ng-show="payment.cause">
+            <td>Cause:</td>
+            <td colspan="5">[[ payment.causeName ]]</td>
+          </tr>
           <tr ng-show="payment.fitrah">
             <td>Zakat Fitrah:</td>
-            <td class="text-center">$12</td>
+            <td class="text-center">[[ rates.fitrah | currency:"$":2 ]]</td>
             <td class="text-center">x</td>
             <td class="quantity text-center">[[ payment.fitrah ]]</td>
             <td class="text-center">=</td>
-            <td class="total text-right">$[[ 12 * payment.fitrah ]]</td>
+            <td class="total text-right">[[ (rates.fitrah * payment.fitrah) | currency:"$":2 ]]</td>
           </tr>
           <tr ng-show="payment.fidyah">
             <td>Fidyah:</td>
-            <td class="text-center">$12</td>
+            <td class="text-center">[[ rates.fidyah | currency:"$":2 ]]</td>
             <td class="text-center">x</td>
             <td class="quantity text-center">[[ payment.fidyah ]]</td>
             <td class="text-center">=</td>
-            <td class="total text-right">$[[ 12 * payment.fidyah ]]</td>
+            <td class="total text-right">[[ (rates.fidyah * payment.fidyah) | currency:"$":2 ]]</td>
           </tr>
           <tr ng-show="maal">
             <td colspan="5">Zakat Maal:</td>
-            <td class="total text-right">$[[ maal ]]</td>
+            <td class="total text-right">[[ maal | currency:"$":2 ]]</td>
           </tr>
           <tr ng-show="infak">
-            <td colspan="5">Infak / Sodaqoh:</td>
-            <td class="total text-right">$[[ infak ]]</td>
+            <td colspan="5">Infaq / Sadaqa:</td>
+            <td class="total text-right">[[ infak | currency:"$":2 ]]</td>
+          </tr>
+          <tr ng-show="payment.method === 'Card'">
+            <td colspan="5">Transaction Fee:</td>
+            <td class="total text-right" ng-if="calculatingFee">
+              <i class="fas fa-spinner fa-spin"></i>
+            </td>
+            <td class="total text-right" ng-if="!calculatingFee">[[ payment.fee | currency:"$":2 ]]</td>
           </tr>
           <tr>
             <td colspan="5">
-              <h3>Total Pembayaran:</h3>
+              <h3>Total Payable:</h3>
             </td>
             <td class="text-right">
-              <h3 class="total">$[[ payment.total ]]</h3>
+              <h3 class="total">[[ payment.total | currency:"$":2 ]]</h3>
             </td>
           </tr>
         </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group">
+          <h4>Payment Method</h4>
+          <select class="form-control input-lg" ng-model="payment.method" ng-change="handlePaymentMethodChanged()">
+            <option value="Transfer">Transfer</option>
+            <option value="Card">Credit/Debit Card</option>
+          </select>
+        </div>
       </div>
     </div>
     <div class="row">
@@ -242,13 +300,13 @@
     </div>
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12">
-        <p>Silahkan masukan nama dan nomor kontak anda. Bila anda menyertai alamat email anda maka kami akan mengirimkan instruksi pembayaran ke alamat email anda.</p>
+        <p>Please enter your name and contact detail. If you specify your email address we will send a copy of the invoice/receipt to your email address.</p>
       </div>
     </div>
     <div class="row">
       <div class="col-xs-12 col-sm-7 col-md-7">
         <div class="form-group" ng-class="{'has-error': nameError}">
-          <h4>Nama Lengkap <span class="glyphicon glyphicon-asterisk text-danger"></span></h4>
+          <h4>Full Name <span class="glyphicon glyphicon-asterisk text-danger"></span></h4>
           <input type="text" class="form-control input-lg" ng-model="payment.name" />
         </div>
       </div>
@@ -256,16 +314,24 @@
     <div class="row">
       <div class="col-xs-12 col-sm-5 col-md-5">
         <div class="form-group" ng-class="{'has-error': mobileError}">
-          <h4>Nomor Telefon <span class="glyphicon glyphicon-asterisk text-danger"></span></h4>
-          <input type="text" class="form-control input-lg" ng-model="payment.mobile" />
+          <h4>Contact Number <span class="glyphicon glyphicon-asterisk text-danger"></span></h4>
+          <input type="text" class="form-control input-lg" ng-model="payment.mobile" only-digits />
         </div>
       </div>
     </div>
     <div class="row">
       <div class="col-xs-12 col-sm-7 col-md-7">
+        <div class="form-group" ng-class="{'has-error': emailError}">
+          <h4>Email Address</h4>
+          <input type="text" class="form-control input-lg" ng-model="payment.email" />
+        </div>
+      </div>
+    </div>
+    <div class="row" ng-if="payment.method === 'Card'">
+      <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group">
-          <h4>Alamat Email</h4>
-          <input type="email" class="form-control input-lg" ng-model="payment.email" />
+          <h4>Card Detail <span class="glyphicon glyphicon-asterisk text-danger"></span></h4>
+          <stripe-element instance="element" class="form-control input-lg"></stripe-element>
         </div>
       </div>
     </div>
@@ -290,15 +356,71 @@
         <h3>Jazakumullah, [[ payment.name ]].</h3>
       </div>
     </div>
-    <div class="row">
+    <div class="row" ng-if="payment.method === 'Transfer'">
       <div class="col-xs-12 col-sm-12 col-md-12">
-        <p>Pembayaran anda sudah kami catat.</p>
-        <p>Mohon untuk transfer pembayaran tersebut ke rekening Bazis IMCV dengan rincian di bawah ini.</p>
+        <p>We have recorded your payment intent.</p>
+        <p>Please transfer the amount to the following Bazis IMCV account with detail as follows.</p>
         <p>Account Name: IMCV Inc. BAZIS</p>
         <p>BSB: 083144</p>
         <p>Account Number: 944280572</p>
         <p>Description: [[ payment.reference ]]</p>
-        <p>Amount: $[[ payment.total ]]</p>
+        <p>Amount: [[ payment.total | currency:"$":2 ]]</p>
+      </div>
+    </div>
+    <div class="row" ng-if="payment.method === 'Card'">
+      <div class="col-xs-12 col-sm-12 col-md-12">
+        <p>Your card has been charged.</p>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12">
+        <table class="table">
+          <tr ng-show="payment.onBehalfOf">
+            <td>On Behalf Of:</td>
+            <td colspan="5">[[ payment.onBehalfOf ]]</td>
+          </tr>
+          <tr ng-show="payment.cause">
+            <td>Cause:</td>
+            <td colspan="5">[[ payment.causeName ]]</td>
+          </tr>
+          <tr ng-show="payment.fitrah">
+            <td>Zakat Fitrah:</td>
+            <td class="text-center">[[ rates.fitrah | currency:"$":2 ]]</td>
+            <td class="text-center">x</td>
+            <td class="quantity text-center">[[ payment.fitrah ]]</td>
+            <td class="text-center">=</td>
+            <td class="total text-right">[[ (rates.fitrah * payment.fitrah) | currency:"$":2 ]]</td>
+          </tr>
+          <tr ng-show="payment.fidyah">
+            <td>Fidyah:</td>
+            <td class="text-center">[[ rates.fidyah | currency:"$":2 ]]</td>
+            <td class="text-center">x</td>
+            <td class="quantity text-center">[[ payment.fidyah ]]</td>
+            <td class="text-center">=</td>
+            <td class="total text-right">[[ (rates.fidyah * payment.fidyah) | currency:"$":2 ]]</td>
+          </tr>
+          <tr ng-show="maal">
+            <td colspan="5">Zakat Maal:</td>
+            <td class="total text-right">[[ maal | currency:"$":2 ]]</td>
+          </tr>
+          <tr ng-show="infak">
+            <td colspan="5">Infaq / Sadaqa:</td>
+            <td class="total text-right">[[ infak | currency:"$":2 ]]</td>
+          </tr>
+          <tr ng-show="payment.method === 'Card'">
+            <td colspan="5">Transaction Fee:</td>
+            <td class="total text-right" ng-if="calculatingFee">
+              <i class="fas fa-spinner fa-spin"></i>
+            </td>
+            <td class="total text-right" ng-if="!calculatingFee">[[ payment.fee | currency:"$":2 ]]</td>
+          </tr>
+          <tr>
+            <td colspan="5">
+              <h3>Amount Charged:</h3>
+            </td>
+            <td class="text-right">
+              <h3 class="total">[[ payment.total | currency:"$":2 ]]</h3>
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
     <div class="row">
@@ -327,7 +449,7 @@
       <h3 class="modal-title">Processing...</h3>
     </div>
     <div class="modal-body">
-      <p>Mohon ditunggu.</p>
+      <p>Please wait.</p>
     </div>
     <div class="modal-footer">
       <progressbar class="progress-striped active"></progressbar>
@@ -335,9 +457,11 @@
   </script>
 
   <!-- Vendor -->
-  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-route.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular-route.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.13.0/ui-bootstrap-tpls.min.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script> -->
+  <script src="https://js.stripe.com/v3/"></script>
 
   {% javascripts '@AppBundle/Resources/public/js/app.js' %}
     <script src="{{ asset_url }}"></script>

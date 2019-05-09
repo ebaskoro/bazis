@@ -1,9 +1,24 @@
+var configuration = {
+  agentUrl: 'URL_AGENTS',
+  causeUrl: 'URL_CAUSES',
+  rateUrl: 'URL_RATES',
+  transactionUrl: 'URL_TRANSACTION'
+};
+
+
+var rates = {
+  fitrah: 0,
+  fidyah: 0,
+  nisab: 0.0
+};
+
+
 function updateSummary() {
   var $summary = $('#summary');
 
   var fitrah = parseInt($('#fitrah').val());
   var $fitrahRow = $('#fitrahRow');
-  var fitrahTotal = 12 * fitrah;
+  var fitrahTotal = rates.fitrah * fitrah;
 
   if (fitrah) {
     $fitrahRow
@@ -18,7 +33,7 @@ function updateSummary() {
 
   var fidyah = parseInt($('#fidyah').val());
   var $fidyahRow = $('#fidyahRow');
-  var fidyahTotal = 12 * fidyah;
+  var fidyahTotal = rates.fidyah * fidyah;
 
   if (fidyah) {
     $fidyahRow
@@ -39,8 +54,7 @@ function updateSummary() {
       .find('.total').text('$' + maal).end()
       .show()
     ;
-  }
-  else {
+  } else {
     $maalRow.hide();
   }
 
@@ -52,8 +66,7 @@ function updateSummary() {
       .find('.total').text('$' + infak).end()
       .show()
     ;
-  }
-  else {
+  } else {
     $infakRow.hide();
   }
 
@@ -62,8 +75,7 @@ function updateSummary() {
 
   if (fitrah || fidyah || maal || infak) {
     $summary.show();
-  }
-  else {
+  } else {
     $summary.hide();
   }
 }
@@ -73,6 +85,8 @@ function updateSummary() {
  * Clears the form.
  */
 function clearForm() {
+  $('#onBehalfOf').val('');
+  $('#cause').val('0');
   $('#fitrah').val('0');
   $('#fidyah').val('0');
   $('#maal').val('');
@@ -96,8 +110,7 @@ function validateForm() {
 
   if ($agent.val()) {
     $agent.parent().removeClass('has-error');
-  }
-  else {
+  } else {
     $agent.parent().addClass('has-error');
     errorMessages.push('Nama agen harap dipilih');
   }
@@ -109,16 +122,15 @@ function validateForm() {
   var $maal = $('#maal');
   var $infak = $('#infak');
 
-  if (fitrah ||
-     fidyah ||
-     $maal.val() ||
-     $infak.val()) {
+  if (fitrah
+    || fidyah
+    || $maal.val()
+    || $infak.val()) {
     $fitrah.parent().removeClass('has-error');
     $fidyah.parent().removeClass('has-error');
     $maal.parent().removeClass('has-error');
     $infak.parent().removeClass('has-error');
-  }
-  else {
+  } else {
     $fitrah.parent().addClass('has-error');
     $fidyah.parent().addClass('has-error');
     $maal.parent().addClass('has-error');
@@ -130,8 +142,7 @@ function validateForm() {
 
   if ($name.val()) {
     $name.parent().removeClass('has-error');
-  }
-  else {
+  } else {
     $name.parent().addClass('has-error');
     errorMessages.push('Nama lengkap harap diisi');
   }
@@ -140,16 +151,32 @@ function validateForm() {
 
   if ($mobile.val()) {
     $mobile.parent().removeClass('has-error');
-  }
-  else {
+  } else if ($('#paymentMethod').val() === 'Transfer') {
     $mobile.parent().addClass('has-error');
     errorMessages.push('Nomor telefon harap diisi');
+  } else {
+    $mobile.parent().removeClass('has-error');
+  }
+
+  var $email = $('#email');
+
+  if ($email.val()) {
+    var regEx = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    var email = $email.val();
+
+    if (regEx.test($email.val().toLowerCase())) {
+      $email.parent().removeClass('has-error');
+    } else {
+      $email.parent().addClass('has-error');
+      errorMessages.push('Format email salah');
+    }
+  } else {
+    $email.parent().removeClass('has-error');
   }
 
   if (errorMessages.length === 0) {
     return true;
-  }
-  else {
+  } else {
     var errorMessage = errorMessages.join(', ') + '.';
     $('#validationModal .error-message').text(errorMessage);
     return false;
@@ -162,33 +189,78 @@ function validateForm() {
  *
  */
 function initialiseAgents() {
-  var $progressModal = $('#progressModal');
-  $progressModal.modal('show');
+  const $agentSelector = $('#agent');
+  $agentSelector.prop('disabled', 'disabled');
 
-  $.ajax({
-    url: 'https://script.google.com/macros/s/AKfycbwGqZfpJnst5mnXbs-rnrOPqXzkhBLwlwvbat7Gi9uDQz-WF6AD/exec?prefix=?',
+  return $.ajax({
+    url: configuration.agentUrl,
     jsonp: 'prefix',
     dataType: 'jsonp',
     success: function (response) {
-      $progressModal.modal('hide');
-
       if (response.resultCode == 0) {
-        var $agentSelector = $('#agent');
-        $agentSelector.empty();
-        $('<option></option>')
-          .attr('value', '')
-          .text('Pilih')
-          .appendTo($agentSelector);
         $.each(response.agents, function (i, agent) {
           $('<option></option>')
-            .attr('value', agent.name)
+            .attr('value', agent.id)
             .text(agent.name)
             .appendTo($agentSelector);
         });
       }
-    },
-    error: function (jqXHR, textStatus, errorThrown) {
-      $progressModal.modal('hide');
+
+      $agentSelector.prop('disabled', false);
+    }
+  });
+}
+
+
+/**
+ * Initialises the causes.
+ *
+ */
+function initialiseCauses() {
+  const $causeSelector = $('#cause');
+  $causeSelector.prop('disabled', 'disabled');
+
+  return $.ajax({
+    url: configuration.causeUrl,
+    jsonp: 'prefix',
+    dataType: 'jsonp',
+    success: function (response) {
+      if (response.resultCode === 0) {
+        $.each(response.causes, function (i, cause) {
+          $('<option></option>')
+            .attr('value', cause.id)
+            .text(cause.name)
+            .appendTo($causeSelector);
+        });
+      }
+
+      $causeSelector.prop('disabled', false);
+    }
+  });
+}
+
+
+/**
+ * Initialises the rates.
+ *
+ */
+function initialiseRates() {
+  return $.ajax({
+    url: configuration.rateUrl,
+    jsonp: 'prefix',
+    dataType: 'jsonp',
+    success: function (response) {
+      if (response.resultCode === 0) {
+        rates = response.rates;
+        $('span.rate-fitrah').text(rates.fitrah);
+        $('span.rate-fidyah').text(rates.fidyah);
+
+        const nisabAsString = rates.nisab.toLocaleString('en', {
+          style: 'currency',
+          currency: 'AUD'
+        });
+        $('span.rate-nisab').text(nisabAsString);
+      }
     }
   });
 }
@@ -215,23 +287,38 @@ $(function () {
     updateSummary();
   });
 
+  $('#paymentMethod').change(function () {
+    const $span = $('#mobile')
+      .prev('h4')
+      .find('span');
+
+    if ($('#paymentMethod').val() !== 'Transfer') {
+      $span.hide();
+    } else {
+      $span.show();
+    }
+  });
+
   $('#summary').hide();
 
   $('#resetButton').click(function () {
     clearForm();
   });
 
-  $('#processButton').click(function () {
+  const processButton = $('#processButton');
+  processButton.click(function () {
     var validated = validateForm();
 
     if (validated) {
       $('#progressModal').modal('show');
 
       $.ajax({
-        url: 'https://script.google.com/macros/s/AKfycbwWsv6rb1axS4yvUJzMtHiRZDjS1BUx6M1Iy3i6-Rqv8P2hr7Z6/exec?prefix=?',
+        url: configuration.transactionUrl,
         jsonp: 'prefix',
         dataType: 'jsonp',
         data: {
+          onBehalfOf: $('#onBehalfOf').val(),
+          cause: parseInt($('#cause').val()),
           name: $('#name').val(),
           phone: $('#mobile').val(),
           email: $('#email').val(),
@@ -258,8 +345,7 @@ $(function () {
               .find('.total').text('$' + response.total)
               .show()
             ;
-          }
-          else {
+          } else {
             $info.hide();
           }
 
@@ -272,11 +358,23 @@ $(function () {
           $('#validationModal').modal();
         }
       });
-    }
-    else {
+    } else {
       $('#validationModal').modal();
     }
   });
 
-  initialiseAgents();
+  $('input.only-digits').keyup(function () {
+    this.value = this.value.replace(/[^0-9]/g, '');
+  });
+
+  processButton.addClass('disabled');
+  $.when(initialiseAgents(), initialiseCauses(), initialiseRates())
+    .always(function () {
+      $('#mobile')
+        .prev('h4')
+        .find('span')
+        .hide();
+      $('#paymentMethod').val('Cash');
+      processButton.removeClass('disabled');
+    });
 });
