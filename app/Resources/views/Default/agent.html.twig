@@ -4,11 +4,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>IMCV BAZIS Agent</title>
   <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans:600" />
   {% stylesheets '@AppBundle/Resources/public/css/*' %}
     <link rel="stylesheet" href="{{ asset_url }}" />
   {% endstylesheets %}
-  <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+  <link rel="icon" type="image/x-icon" href="{{ asset('favicon.png') }}" />
 </head>
 <body>
   <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -28,8 +29,26 @@
     <div class="row">
       <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group">
+          <h4>ZIS Atas Nama</h4>
+          <input type="text" class="form-control input-lg" id="onBehalfOf" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group">
+          <h4>Dalam Rangka</h4>
+          <select class="form-control input-lg" id="cause">
+            <option value="0">Tidak Ada</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-6">
+        <div class="form-group">
           <h4>Zakat Fitrah</h4>
-          <h6>$12 per Jiwa</h6>
+          <h6>$<span class="rate-fitrah"><i class="fas fa-spinner fa-spin"></i></span> per Jiwa</h6>
           <select class="form-control input-lg" id="fitrah">
             <option value="0">Tidak Ada</option>
             <option value="1">1 Orang</option>
@@ -50,7 +69,7 @@
       <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group">
           <h4>Fidyah</h4>
-          <h6>$12 per Hari</h6>
+          <h6>$<span class="rate-fidyah"><i class="fas fa-spinner fa-spin"></i></span> per Hari</h6>
           <select class="form-control input-lg" id="fidyah">
             <option value="0">Tidak Ada</option>
             <option value="1">1 Hari</option>
@@ -91,8 +110,8 @@
       <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group">
           <h4>Zakat Maal</h4>
-          <h6>2.5% dari total harta kita (uang kas, emas, perak dan pendapatan bisnis) batas nisab A$4,649.50</h6>
-          <input type="text" class="form-control input-lg" id="maal" />
+          <h6>2.5% dari total harta kita (uang kas, emas, perak dan pendapatan bisnis) batas nisab <span class="rate-nisab"><i class="fas fa-spinner fa-spin"></i></span></h6>
+          <input type="text" class="form-control input-lg only-digits" id="maal" />
         </div>
       </div>
     </div>
@@ -100,14 +119,14 @@
       <div class="col-xs-12 col-sm-6 col-md-6">
         <div class="form-group">
           <h4>Infak atau Sodaqoh</h4>
-          <input type="text" class="form-control input-lg" id="infak" />
+          <input type="text" class="form-control input-lg only-digits" id="infak" />
         </div>
       </div>
     </div>
     <div class="row" id="summary">
       <div class="col-xs-12 col-sm-12 col-md-12">
-        <h4>Summary</h4>
-        <table class="table table-bordered">
+        <h4>Rincian Pembayaran</h4>
+        <table class="table">
           <tr id="fitrahRow">
             <td>Zakat Fitrah:</td>
             <td class="text-center">$12</td>
@@ -155,7 +174,7 @@
       <div class="col-xs-12 col-sm-5 col-md-5">
         <div class="form-group">
           <h4>Nomor Telefon <span class="glyphicon glyphicon-asterisk text-danger"></span></h4>
-          <input type="text" class="form-control input-lg" id="mobile" />
+          <input type="text" class="form-control input-lg only-digits" id="mobile" />
         </div>
       </div>
     </div>
@@ -181,7 +200,7 @@
     </div>
     <div class="row">
       <div class="col-xs-6 col-sm-offset-3 col-sm-3 col-md-offset-3 col-md-3">
-        <button class="btn btn-default btn-block btn-lg" id="resetButton">Delete</button>
+        <button class="btn btn-default btn-block btn-lg" id="resetButton">Reset</button>
       </div>
       <div class="col-xs-6 col-sm-3 col-md-3">
         <button class="btn btn-primary btn-block btn-lg" id="processButton">Save</button>
@@ -191,7 +210,7 @@
 
   <nav class="navbar navbar-inverse navbar-fixed-bottom">
     <div class="container">
-      <p class="navbar-text">&copy; 2017 IMCV BAZIS | bazis.imcv.org.au</p>
+      <p class="navbar-text">&copy; 2019 IMCV BAZIS | bazis.imcv.org.au</p>
     </div>
   </nav>
 

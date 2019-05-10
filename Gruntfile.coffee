@@ -20,6 +20,9 @@ module.exports = (grunt) ->
           'Gruntfile.*'
           '.htaccess'
           'server'
+          '.vagrant'
+          'web/css/*'
+          'web/js/*'
         ]
         args: [
           '--verbose'
@@ -28,14 +31,24 @@ module.exports = (grunt) ->
         delete: true
         src: './'
         host: 'imcv1@imcv.org.au'
+
+      uat:
+        options:
+          dest: '~/public_html/bazis-uat'
+
       prod:
         options:
           dest: '~/public_html/bazis'
+
+
+    grunt.registerTask 'deploy:uat', [
+      'rsync:uat'
+    ]
 
     grunt.registerTask 'deploy:prod', [
       'rsync:prod'
     ]
 
     grunt.registerTask 'default', [
-      'deploy:prod'
+      'deploy:uat'
     ]
